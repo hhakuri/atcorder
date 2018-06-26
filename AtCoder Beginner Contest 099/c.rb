@@ -1,15 +1,16 @@
-n=gets.to_i
-a = []
-a += (1..5).map{|m| 9**m}
-a += (1..6).map{|m| 6**m}
-a.sort!.reverse!
-i = 0
-a.each do |e|
-  if n-e >= 0
-    n -= e
-    i += 1
-    redo
+def s(i, dp, st)
+  w = st
+  while w<=i
+    dp[i] = [dp[i], dp[i-w]+1].min
+    w *= st
   end
 end
-i += n
-p i
+
+n=gets.to_i
+dp = []
+(n+1).times do |i|
+  dp[i] = i
+  s(i, dp, 6)
+  s(i, dp, 9)
+end
+puts dp[n]
